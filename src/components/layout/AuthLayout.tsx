@@ -1,4 +1,6 @@
+import { Container } from "@mui/material";
+
 const AuthLayout = () => {
-  return <div>AuthLayout</div>;
+  return <Container>AuthLayout</Container>;
 };
 export default AuthLayout;
