@@ -4,17 +4,18 @@ import {
   Route,
 } from "react-router-dom";
 import Layout from "./components/layout/Layout";
-import AdminLayout from "./components/layout/AdminLayout";
+import LayoutAdmin from "./components/layout/LayoutAdmin";
 import UsersPage from "./pages/admin/UsersPage";
+import HomePage from "./pages/user/HomePage";
 
 const App = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<Layout />}>
-        <Route index></Route>
+        <Route index element={<HomePage />} />
       </Route>
-      <Route path="/admin" element={<AdminLayout />}>
-        <Route index />
+      <Route path="/admin" element={<LayoutAdmin />}>
+        <Route index element={<UsersPage />} />
         <Route path="users" element={<UsersPage />} />
       </Route>
     </>
