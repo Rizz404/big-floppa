@@ -2,7 +2,7 @@ import { Container, Grid, Toolbar } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import SidebarAdmin from "../SidebarAdmin";
 
-const LayoutAdmin = () => {
+const AdminLayout = () => {
   return (
     <Grid container>
       {/* Sidebar */}
@@ -21,4 +21,4 @@ const LayoutAdmin = () => {
   );
 };
 
-export default LayoutAdmin;
+export default AdminLayout;

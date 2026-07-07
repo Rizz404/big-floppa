@@ -45,7 +45,7 @@ const listItemButtonStyles: SxProps<Theme> = {
 
 const SidebarAdmin = () => {
   return (
-    <Drawer variant="permanent" sx={drawerStyles}>
+    <Drawer variant="persistent" sx={drawerStyles} anchor="left">
       <Box>
         <Toolbar sx={toolbarStyles} component={NavLink} to="/admin">
           <Typography variant="h6">Logo Web</Typography>

@@ -3,7 +3,7 @@ import Navbar from "../Navbar";
 import { Navigate, Outlet } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
-const LayoutAuth = () => {
+const AuthLayout = () => {
   const { user, token } = useAuth();
 
   return user && token ? (
@@ -17,4 +17,4 @@ const LayoutAuth = () => {
     <Navigate to="/" />
   );
 };
-export default LayoutAuth;
+export default AuthLayout;

@@ -18,7 +18,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     return userInStorage ? JSON.parse(userInStorage) : null;
   });
   const [token, setToken] = useState<string | null>(() => {
-    const tokenInStorage = localStorage.getItem("token");
+    const tokenInStorage = localStorage.getItem("accessToken");
     return tokenInStorage ? tokenInStorage : null;
   });
 
@@ -32,9 +32,9 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (token) {
-      localStorage.setItem("token", token);
+      localStorage.setItem("accessToken", token);
     } else {
-      localStorage.removeItem("token");
+      localStorage.removeItem("accessToken");
     }
   }, [token]);
 

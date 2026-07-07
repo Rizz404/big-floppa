@@ -10,6 +10,21 @@ export interface User {
   isVerified: boolean;
   createdAt: Date;
   updatedAt: Date;
+
+  profile: Profile;
+}
+
+export interface Profile {
+  id: string;
+  firstname: string | null;
+  lastname: string | null;
+  profilePicture: string | null;
+  gender: "MALE" | "FEMALE";
+  age: string | null;
+  phoneNumber: string | null;
+  bio: string | null;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export type LoginData = Pick<User, "email" | "password">;

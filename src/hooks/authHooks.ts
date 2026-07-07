@@ -1,8 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import axiosInstance from "../config/axiosInstance";
 import { LoginData, RegisterData, User } from "../types/User";
-import { AxiosError } from "axios";
-import { MutationResponse } from "../types/Response";
+import { CustomAxiosError, MutationResponse } from "../types/Response";
 import { useNavigate } from "react-router-dom";
 import useAuth from "./useAuth";
 import { toast } from "react-toastify";
@@ -10,7 +9,7 @@ import { toast } from "react-toastify";
 export const useRegister = () => {
   const navigate = useNavigate();
 
-  return useMutation<MutationResponse<User>, AxiosError, RegisterData>({
+  return useMutation<MutationResponse<User>, CustomAxiosError, RegisterData>({
     mutationKey: ["register"],
     mutationFn: async (data) => {
       return (await axiosInstance.post("/auth/register", data)).data;
@@ -19,15 +18,8 @@ export const useRegister = () => {
       navigate("/login");
     },
     onError: (error) => {
-      if (error.response && error.response.data) {
-        const errorMessage = (error.response.data as { message: string })
-          .message;
-        toast.error(errorMessage);
-        console.log(errorMessage);
-      } else {
-        toast.error("An unexpected error occurred");
-        console.log("Error:", error.message);
-      }
+      toast.error(error.response?.data.message);
+      console.log(error.response?.data.message);
     },
   });
 };
@@ -38,7 +30,7 @@ export const useLogin = () => {
 
   return useMutation<
     MutationResponse<User> & { accessToken: string },
-    AxiosError,
+    CustomAxiosError,
     LoginData
   >({
     mutationKey: ["register"],
@@ -56,15 +48,34 @@ export const useLogin = () => {
       toast.success(response.message);
     },
     onError: (error) => {
-      if (error.response && error.response.data) {
-        const errorMessage = (error.response.data as { message: string })
-          .message;
-        toast.error(errorMessage);
-        console.log(errorMessage);
-      } else {
-        toast.error("An unexpected error occurred");
-        console.log("Error:", error.message);
-      }
+      toast.error(error.response?.data.message);
+      console.log(error.response?.data.message);
+    },
+  });
+};
+
+export const useLogout = () => {
+  const navigate = useNavigate();
+  const { setUser, setToken } = useAuth();
+
+  return useMutation<
+    MutationResponse<{ message: string }>,
+    CustomAxiosError,
+    void
+  >({
+    mutationKey: ["logout"],
+    mutationFn: async () => {
+      return (await axiosInstance.post("/auth/logout")).data;
+    },
+    onSuccess: async (response) => {
+      navigate("/");
+      setUser(null);
+      setToken(null);
+      toast.success(response.message);
+    },
+    onError: (error) => {
+      toast.error(error.response?.data.message);
+      console.log(error.response?.data.message);
     },
   });
 };
